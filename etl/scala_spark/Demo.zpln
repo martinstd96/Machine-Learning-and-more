@@ -1,0 +1,1210 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.SparkFiles\nimport org.apache.spark.sql.functions.{regexp_extract, when, lower, col, substring_index, udf}\nimport org.apache.spark.sql.types.{FloatType, IntegerType, StringType}",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:15:35+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.SparkFiles\nimport org.apache.spark.sql.functions.{regexp_extract, when, lower, col, substring_index, udf}\nimport org.apache.spark.sql.types.{FloatType, IntegerType, StringType}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267908_1671337052",
+      "id": "paragraph_1686265298202_1251282652",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:341",
+      "dateFinished": "2023-07-09T16:15:51+0000",
+      "dateStarted": "2023-07-09T16:15:35+0000"
+    },
+    {
+      "text": "sc.addFile(\"https://gitlab.com/martinstd96/datos_tdl/-/raw/master/ar_properties_2019_2020.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:16:44+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267909_608306601",
+      "id": "paragraph_1686267768383_497165124",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:342",
+      "dateFinished": "2023-07-09T16:18:37+0000",
+      "dateStarted": "2023-07-09T16:16:44+0000"
+    },
+    {
+      "text": "val demoCsv = spark.read.option(\"header\", true).option(\"inferSchema\", true).csv(\"file://\"+SparkFiles.get(\"ar_properties_2019_2020.csv\"))",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:18:54+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdemoCsv\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=0",
+              "$$hashKey": "object:2770"
+            },
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=1",
+              "$$hashKey": "object:2771"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267909_1883166664",
+      "id": "paragraph_1686273221058_1602035737",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:343",
+      "dateFinished": "2023-07-09T16:21:02+0000",
+      "dateStarted": "2023-07-09T16:18:54+0000"
+    },
+    {
+      "text": "demoCsv.show(10)",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:15+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------------------+---------+----------+----------+----------+--------------+--------------+---------+-------+-----------+-------------+----+----+-----+--------+---------+-------------+---------------+-----+--------+------------+--------------------+--------------------+--------------+-----------------+\n|                  id|  ad_type|start_date|  end_date|created_on|           lat|           lon|       l1|     l2|         l3|           l4|  l5|  l6|rooms|bedrooms|bathrooms|surface_total|surface_covered|price|currency|price_period|               title|         description| property_type|   operation_type|\n+--------------------+---------+----------+----------+----------+--------------+--------------+---------+-------+-----------+-------------+----+----+-----+--------+---------+-------------+---------------+-----+--------+------------+--------------------+--------------------+--------------+-----------------+\n|7LoZFkSIPOTox0r32...|Propiedad|2019-09-15|2019-10-26|2019-09-15|    -26.815439|   -65.3123926|Argentina|Tucumán|Yerba Buena|         null|null|null| null|    null|     null|         null|           null| null|    null|     Mensual|Terreno - Yerba B...|Accesos pavimenta...|          Lote|            Venta|\n|QsZD4OxZInNd5po5L...|Propiedad|2019-09-15|9999-12-31|2019-09-15|    -26.839469|   -65.2127904|Argentina|Tucumán|       null|         null|null|null| null|    null|        1|           55|             41| null|    null|     Mensual|Departamento - Ca...|Detalles construc...|  Departamento|            Venta|\n|qDtysoUgbnHLp0W9W...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4248199|   -64.1812246|Argentina|Córdoba|    Córdoba|Nueva Córdoba|null|null|    2|    null|        1|           45|             45| null|    null|     Mensual|1 DORMITORIO | Sa...|Alquiler temporar...|  Departamento|Alquiler temporal|\n|olj51zV0HFurmaZ78...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4212421|   -64.1907975|Argentina|Córdoba|    Córdoba|       Centro|null|null|    2|    null|        1|           48|             48| null|    null|     Mensual|1 DORMITORIO | M....|\"Alquiler tempora...| supermercados|        farmacias|\n|OcS1SAA5oAzjZ3Mzg...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4260638|   -64.1800425|Argentina|Córdoba|    Córdoba|Nueva Córdoba|null|null|    2|    null|        1|           45|             45| null|    null|     Mensual|1 DORMITORIO | Av...|Alquiler temporar...|  Departamento|Alquiler temporal|\n|vY1UjrDt8jFIGPtJf...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4290892|   -64.1892911|Argentina|Córdoba|    Córdoba|Nueva Córdoba|null|null|    1|    null|        1|           45|             45| null|    null|     Mensual|Departamento - Nu...|Alquiler temporar...|  Departamento|Alquiler temporal|\n|D1KQkn+XsaOHRKVUu...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4186402|    -64.188257|Argentina|Córdoba|    Córdoba|       Centro|null|null|    2|    null|        1|           45|             45| null|    null|     Mensual|1 DORMITORIO | Av...|Alquiler temporar...|  Departamento|Alquiler temporal|\n|2yVnYhBoYRQ5r/mfQ...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4257315|   -64.1808245|Argentina|Córdoba|    Córdoba|Nueva Córdoba|null|null|    1|    null|        1|           40|             40| null|    null|     Mensual|Departamento - Nu...|Alquiler temporar...|  Departamento|Alquiler temporal|\n|t0kNTwjTWOdat8Z87...|Propiedad|2019-09-15|2019-09-25|2019-09-15|-31.4234501056|-64.1842014439|Argentina|Córdoba|    Córdoba|Nueva Córdoba|null|null|    2|    null|     null|           55|             55| null|    null|     Mensual|1 DORMITORIO | It...|Alquiler temporar...|  Departamento|Alquiler temporal|\n|fY4sOgwvFSS5Qz2M6...|Propiedad|2019-09-15|2019-09-25|2019-09-15|   -31.4238235|   -64.1815156|Argentina|Córdoba|    Córdoba|Nueva Córdoba|null|null|    2|    null|        1|           44|             44| null|    null|     Mensual|1 DORMITORIO | Ob...|Alquiler temporar...|  Departamento|Alquiler temporal|\n+--------------------+---------+----------+----------+----------+--------------+--------------+---------+-------+-----------+-------------+----+----+-----+--------+---------+-------------+---------------+-----+--------+------------+--------------------+--------------------+--------------+-----------------+\nonly showing top 10 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=2",
+              "$$hashKey": "object:2829"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267909_211549555",
+      "id": "paragraph_1686273239522_380286930",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:344",
+      "dateFinished": "2023-07-09T16:21:16+0000",
+      "dateStarted": "2023-07-09T16:21:15+0000"
+    },
+    {
+      "text": "\n\nval filteredDF = demoCsv.filter($\"l2\" === \"Capital Federal\" && $\"currency\".isin(\"USD\", \"ARS\") && $\"price\".isNotNull && $\"property_type\".isin(\"Departamento\", \"PH\", \"Casa\"))",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:19+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mfilteredDF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_1810247516",
+      "id": "paragraph_1686351114787_542616025",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:345",
+      "dateFinished": "2023-07-09T16:21:20+0000",
+      "dateStarted": "2023-07-09T16:21:19+0000"
+    },
+    {
+      "text": "val columns = List(\"title\", \"description\")\nval dfCleanDesc = filteredDF.withColumn(\"description\", regexp_replace($\"description\", \"\\n\", \" \"))",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:23+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mcolumns\u001b[0m: \u001b[1m\u001b[32mList[String]\u001b[0m = List(title, description)\n\u001b[1m\u001b[34mdfCleanDesc\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_1283845374",
+      "id": "paragraph_1686351208353_1776324686",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:346",
+      "dateFinished": "2023-07-09T16:21:24+0000",
+      "dateStarted": "2023-07-09T16:21:23+0000"
+    },
+    {
+      "text": "println(dfCleanDesc.filter(col(\"surface_total\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:27+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "14122\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=3",
+              "$$hashKey": "object:2947"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_1774742204",
+      "id": "paragraph_1688882890750_1213423312",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:347",
+      "dateFinished": "2023-07-09T16:21:31+0000",
+      "dateStarted": "2023-07-09T16:21:27+0000"
+    },
+    {
+      "text": "// Fillna for surface_total\nval dfSurfaceTotal = columns.foldLeft(dfCleanDesc) { (accDF, column) =>\n      accDF.withColumn(\"surface_total\",\n        when($\"surface_total\".isNull && lower(col(column)).contains(\"superficie total:\"), \n            substring_index(regexp_extract(lower(col(column)), \"superficie total: \\\\d+\", 0), \" \", 1).cast(IntegerType))\n          .otherwise(when($\"surface_total\".isNull && lower(col(column)).contains(\"sup. total:\"),\n            substring_index(regexp_extract(lower(col(column)), \"sup. total: \\\\d+\", 0), \" \", 1).cast(IntegerType))\n            .otherwise(when($\"surface_total\".isNull, regexp_extract(lower(col(column)), \"(\\\\d+)\\\\s*m\\\\s*2?\", 1).cast(IntegerType))\n          .otherwise($\"surface_total\")))\n      )\n    }\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:35+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdfSurfaceTotal\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_1305999133",
+      "id": "paragraph_1686351716486_1690900925",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:348",
+      "dateFinished": "2023-07-09T16:21:36+0000",
+      "dateStarted": "2023-07-09T16:21:35+0000"
+    },
+    {
+      "text": "println(dfSurfaceTotal.filter(col(\"surface_total\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:39+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "9167\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=4",
+              "$$hashKey": "object:3028"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_1777530446",
+      "id": "paragraph_1688882964165_295372689",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:349",
+      "dateFinished": "2023-07-09T16:21:44+0000",
+      "dateStarted": "2023-07-09T16:21:39+0000"
+    },
+    {
+      "text": "println(dfSurfaceTotal.filter(col(\"bathrooms\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:48+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "6982\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=5",
+              "$$hashKey": "object:3075"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_491903274",
+      "id": "paragraph_1688853920064_412349346",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:353",
+      "dateFinished": "2023-07-09T16:21:51+0000",
+      "dateStarted": "2023-07-09T16:21:48+0000"
+    },
+    {
+      "text": "// Fillna for bathrooms\nval dfBathroom = columns.foldLeft(dfSurfaceTotal) { (accDF, column) =>\n      accDF.withColumn(\"bathrooms\",\n        when($\"bathrooms\".isNull && lower(col(column)).contains(\"baño\"), \n            substring_index(regexp_extract(lower(col(column)), \"\\\\d+ baños?\", 0), \" \", 1).cast(IntegerType))\n          .otherwise(when($\"bathrooms\".isNull && lower(col(column)).contains(\"baños:\"),\n            substring_index(regexp_extract(lower(col(column)), \"baños: \\\\d+\", 0), \" \", 1).cast(IntegerType))\n            .otherwise(when($\"bathrooms\".isNull && lower(col(column)).contains(\"baño completo\"), 1)\n          .otherwise($\"bathrooms\")))\n      )\n    }\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:54+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdfBathroom\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267910_965363388",
+      "id": "paragraph_1686353552618_1074706370",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:354",
+      "dateFinished": "2023-07-09T16:21:55+0000",
+      "dateStarted": "2023-07-09T16:21:54+0000"
+    },
+    {
+      "text": "println(dfBathroom.filter(col(\"bathrooms\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:21:57+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "6514\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=6",
+              "$$hashKey": "object:3153"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_2142960445",
+      "id": "paragraph_1688883244142_1850803295",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:355",
+      "dateFinished": "2023-07-09T16:22:02+0000",
+      "dateStarted": "2023-07-09T16:21:57+0000"
+    },
+    {
+      "text": "println(dfBathroom.filter(col(\"rooms\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:06+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "15673\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=7",
+              "$$hashKey": "object:3197"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_381699145",
+      "id": "paragraph_1688854014546_811368656",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:356",
+      "dateFinished": "2023-07-09T16:22:10+0000",
+      "dateStarted": "2023-07-09T16:22:06+0000"
+    },
+    {
+      "text": "// Fillna for rooms\nval dfRooms = columns.foldLeft(dfBathroom) { (accDF, column) =>\n      accDF.withColumn(\"rooms\",\n        when($\"rooms\".isNull && lower(col(column)).contains(\"mono\"), 1)\n          .otherwise(when($\"rooms\".isNull && lower(col(column)).contains(\"amb\"),\n            substring_index(regexp_extract(lower(col(column)), \"\\\\d+ amb\", 0), \" \", 1).cast(IntegerType))\n            .otherwise(when($\"rooms\".isNull && lower(col(column)).contains(\"ambientes:\"), \n            substring_index(regexp_extract(lower(col(column)), \"ambientes: \\\\d+\", 0), \" \", 1).cast(IntegerType))\n          .otherwise($\"rooms\")))\n      )\n    }",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:13+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdfRooms\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_1817171745",
+      "id": "paragraph_1686354969601_662875788",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:357",
+      "dateFinished": "2023-07-09T16:22:14+0000",
+      "dateStarted": "2023-07-09T16:22:13+0000"
+    },
+    {
+      "text": "println(dfRooms.filter(col(\"rooms\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:17+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "3534\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=8",
+              "$$hashKey": "object:3278"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_187209342",
+      "id": "paragraph_1688854031844_1408371119",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:358",
+      "dateFinished": "2023-07-09T16:22:21+0000",
+      "dateStarted": "2023-07-09T16:22:17+0000"
+    },
+    {
+      "text": "def calculate_bedrooms(rooms_qty: String) : Int = {\n    if (rooms_qty == null) null\n    \n    val bedrooms_qty: Int = rooms_qty.toInt - 1\n    \n    if (bedrooms_qty > 0) bedrooms_qty else 1\n}\n\nval calculate_rooms_udf = udf[Int, String](calculate_bedrooms)",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:38+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mcalculate_bedrooms\u001b[0m: \u001b[1m\u001b[32m(rooms_qty: String)Int\u001b[0m\n\u001b[1m\u001b[34mcalculate_rooms_udf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.expressions.UserDefinedFunction\u001b[0m = UserDefinedFunction(<function1>,IntegerType,Some(List(StringType)))\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_1122774427",
+      "id": "paragraph_1686358709223_761220984",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:359",
+      "dateFinished": "2023-07-09T16:22:39+0000",
+      "dateStarted": "2023-07-09T16:22:38+0000"
+    },
+    {
+      "text": "println(dfRooms.filter(col(\"bedrooms\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:44+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "63338\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=9",
+              "$$hashKey": "object:3371"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_2009814235",
+      "id": "paragraph_1688854127369_688941816",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:360",
+      "dateFinished": "2023-07-09T16:22:48+0000",
+      "dateStarted": "2023-07-09T16:22:44+0000"
+    },
+    {
+      "text": "// Fillna for bedrooms\nval dfBedooms = columns.foldLeft(dfRooms) { (accDF, column) =>\n      accDF.withColumn(\"bedrooms\",\n        when($\"bedrooms\".isNull && $\"rooms\".isNotNull, calculate_rooms_udf(col(\"rooms\")))\n          .otherwise(when($\"bedrooms\".isNull && lower(col(column)).contains(\"dormitorio\"),\n            substring_index(regexp_extract(lower(col(column)), \"\\\\d+ dormitorios?\", 0), \" \", 1).cast(IntegerType))\n            .otherwise(when($\"bedrooms\".isNull && lower(col(column)).contains(\"dormitorios:\"), \n            substring_index(regexp_extract(lower(col(column)), \"dormitorios: \\\\d+\", 0), \" \", 1).cast(IntegerType))\n          .otherwise($\"bedrooms\")))\n      )\n    }",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:49+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdfBedooms\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_763700255",
+      "id": "paragraph_1686356234609_991720393",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:361",
+      "dateFinished": "2023-07-09T16:22:50+0000",
+      "dateStarted": "2023-07-09T16:22:49+0000"
+    },
+    {
+      "text": "println(dfBedooms.filter(col(\"bedrooms\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:22:54+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "1798\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=10",
+              "$$hashKey": "object:3452"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267911_1232817589",
+      "id": "paragraph_1688854163168_955976133",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:362",
+      "dateFinished": "2023-07-09T16:23:06+0000",
+      "dateStarted": "2023-07-09T16:22:54+0000"
+    },
+    {
+      "text": "println(dfBedooms.filter(col(\"currency\").isNull).count())",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:24:13+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://f724d7944c2e:4040/jobs/job?id=11",
+              "$$hashKey": "object:3505"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267912_1700708006",
+      "id": "paragraph_1688854187434_1233657270",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:363",
+      "dateFinished": "2023-07-09T16:24:16+0000",
+      "dateStarted": "2023-07-09T16:24:13+0000"
+    },
+    {
+      "text": "// Fillna currency\nval dfCurrency = columns.foldLeft(dfBedooms) { (accDF, column) =>\n      accDF.withColumn(\"currency\",\n        when($\"currency\".isNull && col(column).contains(\"USD\"), \n            substring_index(regexp_extract(col(column), \" USD \", 0), \" \", 1).cast(IntegerType))\n          .otherwise(when($\"currency\".isNull && col(column).contains(\"ARS\"),\n            substring_index(regexp_extract(col(column), \" ARS \", 0), \" \", 1).cast(IntegerType))\n            .otherwise($\"currency\"))\n      )\n    }",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:24:44+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267912_1460594986",
+      "id": "paragraph_1686369022894_900864852",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:364",
+      "dateFinished": "2023-07-09T16:24:45+0000",
+      "dateStarted": "2023-07-09T16:24:45+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdfCurrency\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "val newColumnsTypes = Map(\n    \"rooms\" -> IntegerType,\n    \"bathrooms\" -> IntegerType,\n    \"bedrooms\" -> IntegerType,\n    \"surface_covered\" -> FloatType,\n    \"surface_total\" -> FloatType,\n    \"price\" -> IntegerType)\n    \nval convertedDF = newColumnsTypes.foldLeft(dfCurrency) { case (accDF, (columnName, newType)) =>\n  accDF.withColumn(columnName, accDF(columnName).cast(newType))\n}\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:25:05+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267912_742244272",
+      "id": "paragraph_1686369638913_603546550",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:365",
+      "dateFinished": "2023-07-09T16:25:06+0000",
+      "dateStarted": "2023-07-09T16:25:05+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mnewColumnsTypes\u001b[0m: \u001b[1m\u001b[32mscala.collection.immutable.Map[String,org.apache.spark.sql.types.NumericType with Product with Serializable]\u001b[0m = Map(bedrooms -> IntegerType, surface_total -> FloatType, price -> IntegerType, surface_covered -> FloatType, rooms -> IntegerType, bathrooms -> IntegerType)\n\u001b[1m\u001b[34mconvertedDF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id: string, ad_type: string ... 23 more fields]\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\n\nval finalDf = convertedDF.select(to_date(col(\"created_on\"),\"yyyy-MM-dd\").alias(\"created_on\"), col(\"l3\").alias(\"neighborhood\"), col(\"rooms\"), col(\"bedrooms\"), \n    col(\"bathrooms\"), col(\"surface_covered\"), col(\"surface_total\"), col(\"price\"), col(\"currency\"), col(\"property_type\"), col(\"operation_type\"))",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:25:20+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267912_1955080375",
+      "id": "paragraph_1686370703587_1348766234",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:366",
+      "dateFinished": "2023-07-09T16:25:20+0000",
+      "dateStarted": "2023-07-09T16:25:20+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mfinalDf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [created_on: date, neighborhood: string ... 9 more fields]\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "val definitiveDF = finalDf.na.drop()\ndefinitiveDF.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:25:25+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267912_1728905952",
+      "id": "paragraph_1686370924413_562634759",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:367",
+      "dateFinished": "2023-07-09T16:25:26+0000",
+      "dateStarted": "2023-07-09T16:25:25+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- created_on: date (nullable = true)\n |-- neighborhood: string (nullable = true)\n |-- rooms: integer (nullable = true)\n |-- bedrooms: integer (nullable = true)\n |-- bathrooms: integer (nullable = true)\n |-- surface_covered: float (nullable = true)\n |-- surface_total: float (nullable = true)\n |-- price: integer (nullable = true)\n |-- currency: string (nullable = true)\n |-- property_type: string (nullable = true)\n |-- operation_type: string (nullable = true)\n\n\u001b[1m\u001b[34mdefinitiveDF\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [created_on: date, neighborhood: string ... 9 more fields]\n"
+          }
+        ]
+      }
+    },
+    {
+      "user": "anonymous",
+      "dateUpdated": "2023-07-09T16:14:27+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1688919267912_1245363553",
+      "id": "paragraph_1686268382059_470574522",
+      "dateCreated": "2023-07-09T16:14:27+0000",
+      "status": "READY",
+      "$$hashKey": "object:368"
+    }
+  ],
+  "name": "Demo",
+  "id": "2J6ZPZ7QT",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/Demo"
+}
